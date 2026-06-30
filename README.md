@@ -144,7 +144,7 @@ Johannesburg, Gauteng, South Africa
 On-site IT repair — laptops, phones, towers, TVs — serving JHB, Pretoria and broader Gauteng.
 
 📧 pixelprotechsolutions@gmail.com
-📞 076 645 9348
+📞 0651971461
 
 ---
 
