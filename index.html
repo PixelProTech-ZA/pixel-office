@@ -113,7 +113,7 @@ body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
 .fb:hover{color:var(--p)!important;background:var(--pd2)!important}
 .fsep{width:1px;height:20px;background:var(--brd);margin:0 4px}
 .dcanvas{flex:1;overflow-y:auto;background:var(--bg);padding:40px}
-.dpage{background:var(--bg4);border:1px solid var(--brd);max-width:850px;margin:0 auto;padding:60px 70px;position:relative;min-height:1100px}
+.dpage{--pgpad-x:70px;--pgpad-y:60px;background:var(--bg4);border:1px solid var(--brd);max-width:850px;margin:0 auto;padding:var(--pgpad-y) var(--pgpad-x);position:relative;min-height:1100px}
 .dpage.pg-midnight{--pgbg:#111120;--pgtx:#f0f0f0;--pgtx2:#7a7a9a}
 .dpage.pg-paper{--pgbg:#ffffff;--pgtx:#1c1c24;--pgtx2:#5a5a6b}
 .dpage.pg-cream{--pgbg:#f7ecd9;--pgtx:#2b2416;--pgtx2:#6b5d42}
@@ -202,7 +202,7 @@ body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
 @media print{
   #cur,#ring,#boot,#topbar,.atb,#tmmod,#toast,#foot,#home,.esb,.dtb,.stbar,.slpanel,.slprop,.atbr,.pgsetup{display:none!important}
   body{background:#fff!important;color:#000!important}
-  .dpage{border:none;padding:20mm 25mm;background:#fff!important;min-height:0!important;max-width:none!important}
+  .dpage{border:none;padding:var(--pgpad-y,20mm) var(--pgpad-x,25mm);--pgpad-x:25mm;--pgpad-y:20mm;background:#fff!important;min-height:0!important;max-width:none!important}
   #ded{min-height:0!important}
   #ivPage{min-height:0!important}
   #ded,#ded *{color:#000!important}
@@ -684,7 +684,7 @@ cv:h1('THEMBA NDLOVU')
 +tl('2019','NC: Information Technology (Level 4)','Tshwane South TVET College — Distinction in PC Support & Networking.')
 +div+h2('References')+pp('Available on request.'),
 
-cv2:'<div style="display:grid;grid-template-columns:190px 1fr;gap:0;margin:-60px -70px;min-height:900px">'
+cv2:'<div style="display:grid;grid-template-columns:190px 1fr;gap:0;margin:calc(-1 * var(--pgpad-y,60px)) calc(-1 * var(--pgpad-x,70px));min-height:900px">'
 +'<div style="background:rgba(123,47,255,.07);border-right:1px solid rgba(123,47,255,.2);padding:40px 22px">'
 +'<div style="font-family:Bebas Neue,sans-serif;font-size:32px;letter-spacing:3px;color:#7b2fff;line-height:1;margin-bottom:16px">THEMBA<br>NDLOVU</div>'
 +'<div style="font-family:JetBrains Mono,monospace;font-size:9px;color:#00d4aa;letter-spacing:2px;margin-bottom:8px">CONTACT</div>'
@@ -1437,7 +1437,7 @@ function applyPageSetup(){
   const ftr=document.getElementById('ftrTxt').value;
   let sizeStr=paper==='A4'?'A4':'letter';
   if(orient==='landscape')sizeStr+=' landscape';
-  const css='@page{size:'+sizeStr+';margin:'+margin+'}\n@media print{.dpage{padding:0!important}'+(printBg?' *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} .dpage{background:var(--pgbg,#fff)!important}':' .dpage{background:#fff!important}')+'}';
+  const css='@page{size:'+sizeStr+';margin:'+margin+'}\n@media print{.dpage{padding:0!important;--pgpad-x:0px;--pgpad-y:0px}'+(printBg?' *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} .dpage{background:var(--pgbg,#fff)!important}':' .dpage{background:#fff!important}')+'}';
   let tag=document.getElementById('pagesetupcss');
   if(!tag){tag=document.createElement('style');tag.id='pagesetupcss';document.head.appendChild(tag);}
   tag.textContent=css;
