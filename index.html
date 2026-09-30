@@ -140,6 +140,7 @@ body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
 .shtb{border-collapse:collapse;min-width:100%}
 .shtb th{background:var(--bg2);border:1px solid var(--brd);padding:4px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tm);letter-spacing:1px;min-width:100px;position:sticky;top:0;z-index:2}
 .shtb .rn{min-width:40px;position:sticky;left:0;z-index:3}
+.shtb thead th{position:sticky;top:0;z-index:2}
 .shtb .rh{background:var(--bg2);border:1px solid var(--brd);padding:4px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tm);text-align:center;position:sticky;left:0;z-index:1}
 .shtb td{border:1px solid var(--brd);padding:0}
 .ci{width:100%;height:100%;border:none!important;padding:4px 8px;font-size:13px;background:transparent!important;font-family:'Rajdhani',sans-serif!important;font-weight:500}
@@ -294,6 +295,7 @@ body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
   <div id="ts" class="tgrid" style="display:none">
     <div class="tcard" onclick="lT('sheets','budget')"><div class="tico">💰</div><div class="tnm">STUDENT BUDGET</div><div class="tds">Income vs expenses tracker</div><div class="tbdg">Finance</div></div>
     <div class="tcard" onclick="lT('sheets','bizbudget')"><div class="tico">📊</div><div class="tnm">BUSINESS BUDGET</div><div class="tds">Revenue, costs, profit tracker</div><div class="tbdg tl">Business</div></div>
+    <div class="tcard" onclick="lT('sheets','roster')"><div class="tico">🗓️</div><div class="tnm">WEEKLY ROSTER</div><div class="tds">20 staff, Mon-Sun hours, auto totals</div><div class="tbdg tl">Business</div></div>
     <div class="tcard" onclick="lT('sheets','marks')"><div class="tico">🎓</div><div class="tnm">MARKS TRACKER</div><div class="tds">Subject averages calculator</div><div class="tbdg">Academic</div></div>
     <div class="tcard" onclick="lT('sheets','timetable')"><div class="tico">📅</div><div class="tnm">TIMETABLE</div><div class="tds">Weekly class schedule grid</div><div class="tbdg">Planning</div></div>
     <div class="tcard" onclick="lT('sheets','stock')"><div class="tico">📦</div><div class="tnm">STOCK INVENTORY</div><div class="tds">Parts tracker with valuation</div><div class="tbdg rd">Tech</div></div>
@@ -511,6 +513,7 @@ body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
     <button class="tbtn" onclick="openTM('sheets')">▦ Templates</button>
     <button class="tbtn" onclick="asum()">Σ AutoSum</button>
     <button class="tbtn" onclick="fmtCurrency()">R Currency</button>
+    <button class="tbtn" onclick="addRows(50)">+ 50 Rows</button>
     <button class="tbtn" onclick="document.getElementById('csvIn').click()">↑ Import CSV</button>
     <input type="file" id="csvIn" accept=".csv" style="display:none" onchange="importCSV(this.files[0])">
     <button class="tbtn" onclick="expCSV()">↓ Export CSV</button>
@@ -1236,7 +1239,8 @@ projectplan:h1('PROJECT PLANNER')
 
 sheets:{
 budget:[['STUDENT MONTHLY BUDGET','','','',''],['','','','',''],['INCOME','Amount (R)','','',''],['Allowance / Bursary','3000','','',''],['Part-time Job','1500','','',''],['Other Income','500','','',''],['TOTAL INCOME','=D4+D5+D6','','',''],['','','','',''],['EXPENSES','Amount (R)','','',''],['Rent / Accommodation','1800','','',''],['Groceries / Food','800','','',''],['Transport','400','','',''],['Data / Airtime','200','','',''],['Books / Stationery','150','','',''],['Entertainment','200','','',''],['Health / Personal','100','','',''],['TOTAL EXPENSES','=D10+D11+D12+D13+D14+D15+D16','','',''],['','','','',''],['NET BALANCE','=D7-D17','','',''],['SAVINGS TARGET (10%)','=D7*0.1','','','']],
-bizbudget:[['SMALL BUSINESS MONTHLY BUDGET','','','',''],['','','','',''],['REVENUE','Amount (R)','','',''],['Product Sales','0','','',''],['Service Fees','0','','',''],['Other Income','0','','',''],['TOTAL REVENUE','=D4+D5+D6','','',''],['','','','',''],['OPERATING COSTS','Amount (R)','','',''],['Staff / Labour','0','','',''],['Rent / Premises','0','','',''],['Stock / Materials','0','','',''],['Marketing','0','','',''],['Fuel / Transport','0','','',''],['Data / Connectivity','0','','',''],['Miscellaneous','0','','',''],['TOTAL COSTS','=D10+D11+D12+D13+D14+D15+D16','','',''],['','','','',''],['GROSS PROFIT','=D7-D17','','',''],['TAX PROVISION (28%)','=D19*0.28','','',''],['NET PROFIT','=D19-D20','','','']],
+roster:[["WEEKLY ROSTER"], ["Week starting:"], ["NAME", "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN", "TOTAL HRS"], ["Staff 1", 8, 8, 8, 8, 8, "", "", "=SUM(B4:H4)"], ["Staff 2", "", "", "", "", "", "", "", "=SUM(B5:H5)"], ["Staff 3", "", "", "", "", "", "", "", "=SUM(B6:H6)"], ["Staff 4", "", "", "", "", "", "", "", "=SUM(B7:H7)"], ["Staff 5", "", "", "", "", "", "", "", "=SUM(B8:H8)"], ["Staff 6", "", "", "", "", "", "", "", "=SUM(B9:H9)"], ["Staff 7", "", "", "", "", "", "", "", "=SUM(B10:H10)"], ["Staff 8", "", "", "", "", "", "", "", "=SUM(B11:H11)"], ["Staff 9", "", "", "", "", "", "", "", "=SUM(B12:H12)"], ["Staff 10", "", "", "", "", "", "", "", "=SUM(B13:H13)"], ["Staff 11", "", "", "", "", "", "", "", "=SUM(B14:H14)"], ["Staff 12", "", "", "", "", "", "", "", "=SUM(B15:H15)"], ["Staff 13", "", "", "", "", "", "", "", "=SUM(B16:H16)"], ["Staff 14", "", "", "", "", "", "", "", "=SUM(B17:H17)"], ["Staff 15", "", "", "", "", "", "", "", "=SUM(B18:H18)"], ["Staff 16", "", "", "", "", "", "", "", "=SUM(B19:H19)"], ["Staff 17", "", "", "", "", "", "", "", "=SUM(B20:H20)"], ["Staff 18", "", "", "", "", "", "", "", "=SUM(B21:H21)"], ["Staff 19", "", "", "", "", "", "", "", "=SUM(B22:H22)"], ["Staff 20", "", "", "", "", "", "", "", "=SUM(B23:H23)"], [], ["TOTAL HRS", "=SUM(B4:B23)", "=SUM(C4:C23)", "=SUM(D4:D23)", "=SUM(E4:E23)", "=SUM(F4:F23)", "=SUM(G4:G23)", "=SUM(H4:H23)", "=SUM(I4:I23)"]],
+  bizbudget:[['SMALL BUSINESS MONTHLY BUDGET','','','',''],['','','','',''],['REVENUE','Amount (R)','','',''],['Product Sales','0','','',''],['Service Fees','0','','',''],['Other Income','0','','',''],['TOTAL REVENUE','=D4+D5+D6','','',''],['','','','',''],['OPERATING COSTS','Amount (R)','','',''],['Staff / Labour','0','','',''],['Rent / Premises','0','','',''],['Stock / Materials','0','','',''],['Marketing','0','','',''],['Fuel / Transport','0','','',''],['Data / Connectivity','0','','',''],['Miscellaneous','0','','',''],['TOTAL COSTS','=D10+D11+D12+D13+D14+D15+D16','','',''],['','','','',''],['GROSS PROFIT','=D7-D17','','',''],['TAX PROVISION (28%)','=D19*0.28','','',''],['NET PROFIT','=D19-D20','','','']],
 marks:[['MARKS TRACKER','','','','',''],['Subject','Test 1','Test 2','Assignment','Exam','Average'],['Mathematics','','','','',''],['English Home Language','','','','',''],['Life Sciences','','','','',''],['Physical Sciences','','','','',''],['History','','','','',''],['Geography','','','','',''],['Accounting','','','','',''],['Life Orientation','','','','',''],['','','','','',''],['SEMESTER AVERAGE','','','','','']],
 timetable:[['TIME','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY'],['07:30–08:30','','','','',''],['08:30–09:30','','','','',''],['09:30–10:30','','','','',''],['10:30–11:00','BREAK','BREAK','BREAK','BREAK','BREAK'],['11:00–12:00','','','','',''],['12:00–13:00','','','','',''],['13:00–14:00','LUNCH','LUNCH','LUNCH','LUNCH','LUNCH'],['14:00–15:00','','','','',''],['15:00–16:00','','','','','']],
 stock:[['STOCK INVENTORY — PIXELPROTECH','','','','',''],['SKU','Item Description','Category','Qty','Unit Cost (R)','Total Value (R)'],['PX-001','Laptop Screen 15.6 FHD','Screens','0','0',''],['PX-002','Laptop Keyboard Universal','Input','0','0',''],['PX-003','SSD 256GB SATA','Storage','0','0',''],['PX-004','RAM DDR4 8GB','Memory','0','0',''],['PX-005','Charger 90W Universal','Power','0','0',''],['PX-006','Thermal Paste','Consumables','0','0',''],['PX-007','HDMI Cable 2m','Cables','0','0',''],['PX-008','USB-C Port Board','Mobile Parts','0','0','']],
@@ -1531,7 +1535,7 @@ function gridToArray(){
   const out=[];
   for(let r=0;r<ROWS;r++){
     const row=[];
-    for(let c=0;c<COLS;c++){const el=document.querySelector(`[data-r="${r}"][data-c="${c}"]`);row.push(el?{v:el.value,f:el.dataset.f||'',curr:el.dataset.curr||''}:{v:'',f:'',curr:''});}
+    for(let c=0;c<COLS;c++){const el=cellEl(r,c);row.push(el?{v:el.value,f:el.dataset.f||'',curr:el.dataset.curr||''}:{v:'',f:'',curr:''});}
     out.push(row);
   }
   return out;
@@ -1546,8 +1550,9 @@ function loadSheetFromStorage(){
     if(!raw)return;
     const data=JSON.parse(raw);
     if(Array.isArray(data)){
+      if(data.length>ROWS)addRows(data.length-ROWS);
       data.forEach((row,r)=>row.forEach((cell,c)=>{
-        const el=document.querySelector(`[data-r="${r}"][data-c="${c}"]`);
+        const el=cellEl(r,c);
         if(!el)return;
         if(cell&&typeof cell==='object'){
           el.value=cell.v||'';
@@ -1602,23 +1607,32 @@ function swTab(tab,btn){
 function lT(app,key){
   closeTM();
   if(app==='docs'){const h=TMPL.docs[key];if(h){document.getElementById('ded').innerHTML=h;wc();openApp('docs');toast('LOADED: '+key.toUpperCase());}}
-  else if(app==='sheets'){const d=TMPL.sheets[key];if(d){document.querySelectorAll('.ci').forEach(c=>{c.value='';delete c.dataset.f;delete c.dataset.curr;});d.forEach((row,r)=>row.forEach((v,c)=>{const el=document.querySelector(`[data-r="${r}"][data-c="${c}"]`);if(el){el.value=v;if(String(v).startsWith('='))el.dataset.f=v;}}));recalcAll();openApp('sheets');toast('LOADED: '+key.toUpperCase());}}
+  else if(app==='sheets'){const d=TMPL.sheets[key];if(d){document.querySelectorAll('.ci').forEach(c=>{c.value='';delete c.dataset.f;delete c.dataset.curr;});d.forEach((row,r)=>row.forEach((v,c)=>{const el=cellEl(r,c);if(el){el.value=v;if(String(v).startsWith('='))el.dataset.f=v;}}));recalcAll();openApp('sheets');toast('LOADED: '+key.toUpperCase());}}
   else if(app==='slides'){const d=TMPL.slides[key];if(d){sData=d.map(s=>({...s}));cSlide=0;renderSlides();openApp('slides');toast('LOADED: '+key.toUpperCase());}}
 }
 
 /* SHEETS */
-const COLS=26,ROWS=40;let selC=null;
+const COLS=26;let ROWS=100;let selC=null;
+const CELLMAP=new Map();
+function cellEl(r,c){return CELLMAP.get(r*1000+c)||null;}
+function indexCells(root){root.querySelectorAll('.ci').forEach(el=>CELLMAP.set(+el.dataset.r*1000+ +el.dataset.c,el));}
+function rowHTML(r){let h=`<tr><td class="rh">${r+1}</td>`;for(let c=0;c<COLS;c++)h+=`<td><input class="ci" data-r="${r}" data-c="${c}" value="" onclick="selCell(this)" oninput="cellIn(this)"></td>`;return h+'</tr>';}
+function addRows(n){
+  const tb=document.querySelector('#sht tbody');if(!tb)return;
+  const start=ROWS;let h='';
+  for(let r=start;r<start+n;r++)h+=rowHTML(r);
+  ROWS=start+n;tb.insertAdjacentHTML('beforeend',h);
+  [...tb.rows].slice(start).forEach(tr=>indexCells(tr));
+  if(n>=10){toast('ROWS: '+ROWS);autosaveSheet();}
+}
 function initSheet(){
   const t=document.getElementById('sht');if(t.querySelector('tbody'))return;
   let h='<thead><tr><th class="rn"></th>';
   for(let c=0;c<COLS;c++)h+=`<th>${String.fromCharCode(65+c)}</th>`;
   h+='</tr></thead><tbody>';
-  for(let r=0;r<ROWS;r++){
-    h+=`<tr><td class="rh">${r+1}</td>`;
-    for(let c=0;c<COLS;c++)h+=`<td><input class="ci" data-r="${r}" data-c="${c}" value="" onclick="selCell(this)" oninput="cellIn(this)"></td>`;
-    h+='</tr>';
-  }
+  for(let r=0;r<ROWS;r++)h+=rowHTML(r);
   t.innerHTML=h+'</tbody>';
+  indexCells(t);
   loadSheetFromStorage();
 }
 function selCell(el){
@@ -1643,9 +1657,11 @@ function cellRef(ref){
   return {c:m[1].charCodeAt(0)-65,r:parseInt(m[2])-1};
 }
 function cellRaw(r,c){
-  const el=document.querySelector(`[data-r="${r}"][data-c="${c}"]`);
+  const el=cellEl(r,c);
   if(!el)return 0;
-  return parseFloat(String(el.value).replace(/[^0-9.\-]/g,''))||0;
+  const t=String(el.value).trim().replace(/^R\s*/i,'').replace(/[,\s]/g,'');
+  if(!/^-?(\d+\.?\d*|\.\d+)%?$/.test(t))return 0; // text, errors and blanks count as 0
+  return t.endsWith('%')?parseFloat(t)/100:parseFloat(t);
 }
 /* REAL formula engine: cells store the typed formula in data-f, the visible
    .value is always the computed result. Supports =A1+B1 style arithmetic
@@ -1678,7 +1694,7 @@ function recalcAll(){
       if(!f)return;
       try{
         const v=evalFormula(f);
-        el.value=fmtCellDisplay(el,typeof v==='number'?(Number.isInteger(v)?v:parseFloat(v.toFixed(2))):v);
+        el.value=(typeof v==='number'&&!isFinite(v))?(isNaN(v)?'#ERR':'#DIV/0!'):fmtCellDisplay(el,typeof v==='number'?(Number.isInteger(v)?v:parseFloat(v.toFixed(2))):v);
       }catch(e){el.value='#ERR';}
     });
   }
@@ -1693,7 +1709,7 @@ function cellIn(el){
     el.dataset.f=raw;
     try{
       const v=evalFormula(raw);
-      el.value=fmtCellDisplay(el,typeof v==='number'?(Number.isInteger(v)?v:parseFloat(v.toFixed(2))):v);
+      el.value=(typeof v==='number'&&!isFinite(v))?(isNaN(v)?'#ERR':'#DIV/0!'):fmtCellDisplay(el,typeof v==='number'?(Number.isInteger(v)?v:parseFloat(v.toFixed(2))):v);
     }catch(e){el.value='#ERR';}
   }else{
     delete el.dataset.f;
@@ -1728,7 +1744,7 @@ function expCSV(){
   const rows=[];
   for(let r=0;r<ROWS;r++){
     const row=[];
-    for(let c=0;c<COLS;c++){const el=document.querySelector(`[data-r="${r}"][data-c="${c}"]`);row.push('"'+(el?(el.dataset.f||el.value||'').replace(/"/g,'""'):'')+'"');}
+    for(let c=0;c<COLS;c++){const el=cellEl(r,c);row.push('"'+(el?(el.dataset.f||el.value||'').replace(/"/g,'""'):'')+'"');}
     if(row.some(v=>v!=='""'))rows.push(row.join(','));
   }
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
@@ -1758,10 +1774,10 @@ function importCSV(file){
     const lines=e.target.result.split(/\r?\n/).filter(l=>l.length);
     document.querySelectorAll('.ci').forEach(c=>{c.value='';delete c.dataset.f;delete c.dataset.curr;});
     lines.forEach((line,r)=>{
-      if(r>=ROWS)return;
+      if(r>=ROWS)addRows(Math.max(50,r-ROWS+1));
       parseCSVLine(line).forEach((v,c)=>{
         if(c>=COLS)return;
-        const el=document.querySelector(`[data-r="${r}"][data-c="${c}"]`);
+        const el=cellEl(r,c);
         if(el){el.value=v;if(v.startsWith('='))el.dataset.f=v;}
       });
     });
@@ -1904,10 +1920,11 @@ function syncSlide(){sData[cSlide].title=document.getElementById('sti').value;sD
 function addSlide(){syncSlide();sData.push({title:'',body:''});cSlide=sData.length-1;renderSlides();autosaveSlides();}
 function slLayout(v){const t=document.getElementById('sti'),b=document.getElementById('sbd'),c=document.getElementById('slc');t.style.textAlign=v==='left'?'left':'center';b.style.textAlign=v==='left'?'left':'center';c.style.alignItems=v==='left'?'flex-start':'center';}
 function slTheme(v){const c=document.getElementById('slc');const T={dark:{bg:'#111120',br:'rgba(123,47,255,.3)'},carbon:{bg:'#0D0D0D',br:'rgba(255,255,255,.06)'},stealth:{bg:'#0A0A0F',br:'rgba(0,212,170,.2)'},gold:{bg:'#0c0c08',br:'rgba(201,168,76,.3)'}};const t=T[v]||T.dark;c.style.background=t.bg;c.style.borderColor=t.br;}
+function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function present(){
   syncSlide();
   const w=window.open('','_blank');
-  const slides=sData.map((s,i)=>`<div id="s${i}" style="display:${i===0?'flex':'none'};flex-direction:column;align-items:center;justify-content:center;width:100vw;height:100vh;background:#0A0A0F;padding:10vw;text-align:center;position:relative;"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7b2fff,#00d4aa)"></div><div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,72px);letter-spacing:4px;color:#7b2fff;line-height:1.1">${s.title||''}</div><div style="font-family:'Rajdhani',sans-serif;font-size:clamp(16px,2.5vw,22px);color:#7a7a9a;margin-top:20px;line-height:1.7;white-space:pre-line">${s.body||''}</div><div style="position:absolute;bottom:20px;right:28px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#2a2a4a">${i+1}/${sData.length}</div><div style="position:absolute;bottom:20px;left:28px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#2a2a4a;letter-spacing:2px">PIXELPROTECH</div></div>`).join('');
+  const slides=sData.map((s,i)=>`<div id="s${i}" style="display:${i===0?'flex':'none'};flex-direction:column;align-items:center;justify-content:center;width:100vw;height:100vh;background:#0A0A0F;padding:10vw;text-align:center;position:relative;"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7b2fff,#00d4aa)"></div><div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,72px);letter-spacing:4px;color:#7b2fff;line-height:1.1">${esc(s.title)}</div><div style="font-family:'Rajdhani',sans-serif;font-size:clamp(16px,2.5vw,22px);color:#7a7a9a;margin-top:20px;line-height:1.7;white-space:pre-line">${esc(s.body)}</div><div style="position:absolute;bottom:20px;right:28px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#2a2a4a">${i+1}/${sData.length}</div><div style="position:absolute;bottom:20px;left:28px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#2a2a4a;letter-spacing:2px">PIXELPROTECH</div></div>`).join('');
   w.document.write(`<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0A0A0F;overflow:hidden;cursor:pointer}</style></head><body>${slides}<script>let c=0,tot=${sData.length};function go(d){document.getElementById('s'+c).style.display='none';c=(c+d+tot)%tot;document.getElementById('s'+c).style.display='flex';}document.onclick=()=>go(1);document.onkeydown=e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);if(e.key==='Escape')window.close();};<\/script></body></html>`);
 }
 </script>
